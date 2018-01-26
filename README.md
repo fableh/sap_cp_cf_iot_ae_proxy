@@ -9,3 +9,18 @@ Create the user provided service via cf CLI e.g. for the OAuth credentials:
 SAP CP Cockpit at Cloud Foundry with the previous binded "user defined variable"
 
 ![Alt text](pics/udv_1.PNG?raw=true "SAP CP Cloud Fiundry service binding ")
+
+Reference the service in the deployment descriptor:
+
+```
+---
+applications:
+- name: sap-proxy
+  buildpack: nodejs_buildpack
+  command: node app.js
+  memory: 128M
+  disk_quota: 128M
+  host: sap-proxy
+  services:
+    - my-usp-sap-proxy
+```
