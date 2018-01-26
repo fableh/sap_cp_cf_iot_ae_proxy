@@ -2,13 +2,18 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 var NodeAE = require('sap-iot-ae-node-wrapper')
+var cfenv = require('cfenv')
+
+var appEnv = cfenv.getAppEnv()
 
 var nodeAE = new NodeAE({
-	clientId: '<SAP CP IoT AE Client ID>',
-	clientSecret: '<SAP CP Client Secret>',
-	tenant: '<your sap cp cf tenant>',
-	landscape: 'eu10',
-	host: 'hana.ondemand.com'})
+    clientId: appEnv.getService('my-usp-sap-proxy').credentials.clientId,
+    clientSecret: appEnv.getService('my-usp-sap-proxy').credentials.clientSecret,
+    tenant: appEnv.getService('my-usp-sap-proxy').credentials.tenant,
+    landscape: appEnv.getService('my-usp-sap-proxy').credentials.landscape,
+    host: appEnv.getService('my-usp-sap-proxy').credentials.host
+
+}) 
 
 nodeAE.setBaseURI('appiot-mds') 
 const basicAuth = require('basic-auth');
