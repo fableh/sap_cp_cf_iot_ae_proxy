@@ -24,3 +24,14 @@ applications:
   services:
     - my-usp-sap-proxy
 ```
+
+access the user defined variable(s) in your application is this way
+
+```
+var cfenv = require('cfenv')
+
+var appEnv = cfenv.getAppEnv()
+
+appEnv.getService('my-usp-sap-proxy').credentials.clientId
+
+```
